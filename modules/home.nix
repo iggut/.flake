@@ -34,7 +34,7 @@
 
   #Hyprland
     home.sessionVariables = {
-	    BROWSER = "google-chrome-beta";
+	    BROWSER = "brave";
 	    TERMINAL = "kitty";
 	    NIXOS_OZONE_WL = "1";
 	    QT_QPA_PLATFORMTHEME = "gtk3";

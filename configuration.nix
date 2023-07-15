@@ -14,6 +14,11 @@
       ./modules/shell.nix
       ./modules/users.nix
       ./modules/nvidia.nix
+      ./modules/yubikey.nix
+      ./modules/brave.nix
+      ./services/mullvad.nix
+      ./services/fwupd.nix
+      ./services/swapfile.nix
     ];
 
   #ntfs support
@@ -133,13 +138,35 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.systemPackages = with pkgs; [
  # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-     vim
-     zig
-     wget
-     killall
-     git
-     neofetch
-     gh
+    vim
+    zig
+    wget
+    killall
+    git
+    neofetch
+    gh
+    _1password
+    bat
+    binutils
+    curl
+    dig
+    dua
+    duf
+    exa
+    fd
+    file
+    gotop
+    helix
+    htop
+    jq
+    pciutils
+    ripgrep
+    rsync
+    traceroute
+    tree
+    unzip
+    usbutils
+    yq-go
   ];
 
 

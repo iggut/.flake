@@ -3,9 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     hyprland.url = "github:hyprwm/Hyprland";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";   };
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
+
+  };
 
 
   outputs = { self, nixpkgs, hyprland, home-manager, ... }: 
@@ -41,7 +49,7 @@
         };
       };
     };
-  }
+}
 
 #nixos-22.11
 
