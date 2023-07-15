@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  marketplace-extensions = with nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+  marketplace-extensions = with ${pkgs.system}.vscode-marketplace; [
     johnnymorganz.stylua
     ms-python.black-formatter
     ms-python.python
