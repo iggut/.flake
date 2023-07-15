@@ -120,16 +120,16 @@
   services.dbus.packages = [pkgs.dconf];
 
   #xdg
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      #xdg-desktop-portal-hyprland
-      xdg-desktop-portal-wlr
-    ];
-    wlr.enable = true;
-  };
+  #xdg.portal = {
+  #  enable = true;
+  #  xdgOpenUsePortal = true;
+  #  extraPortals = with pkgs; [
+  #    xdg-desktop-portal-gtk
+  #xdg-desktop-portal-hyprland
+  #    xdg-desktop-portal-wlr
+  #  ];
+  #  wlr.enable = true;
+  #};
 
   #SystemPackages
   # List packages installed in system profile. To search, run:
