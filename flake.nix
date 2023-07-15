@@ -25,6 +25,7 @@
     hyprland,
     home-manager,
     disko,
+    nix-vscode-extensions,
     ...
   }: let
     user = "iggut";
