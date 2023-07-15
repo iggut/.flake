@@ -22,6 +22,7 @@
     ./services/mullvad.nix
     ./services/fwupd.nix
     ./services/swapfile.nix
+    ./modules/vscode.nix
   ];
 
   #ntfs support
