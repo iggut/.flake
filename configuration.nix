@@ -1,34 +1,38 @@
-{ config, pkgs, lib, inputs, modulesPath, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  modulesPath,
+  ...
+}: {
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
-# Include the results of the hardware scan.
-    imports = [ 
-      ./hardware-configuration.nix
-      ./modules/vm.nix
-      ./modules/shell.nix
-      ./modules/users.nix
-      ./modules/nvidia.nix
-      ./modules/yubikey.nix
-      ./services/mullvad.nix
-      ./services/fwupd.nix
-      ./services/swapfile.nix
-    ];
+  # Include the results of the hardware scan.
+  imports = [
+    ./hardware-configuration.nix
+    ./modules/vm.nix
+    ./modules/shell.nix
+    ./modules/users.nix
+    ./modules/nvidia.nix
+    ./modules/yubikey.nix
+    ./services/mullvad.nix
+    ./services/fwupd.nix
+    ./services/swapfile.nix
+  ];
 
   #ntfs support
-  boot.supportedFilesystems = [ "btrfs" "ntfs" ];
+  boot.supportedFilesystems = ["btrfs" "ntfs"];
   # Fonts
-    fonts.fonts = with pkgs; [
-      font-awesome
-     (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka" ]; })
-     ];
+  fonts.fonts = with pkgs; [
+    font-awesome
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Iosevka"];})
+  ];
   #emojis
-    #services.gollum.emoji = true;
-
+  #services.gollum.emoji = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -37,11 +41,10 @@
   # Boot entries limit
   boot.loader.systemd-boot.configurationLimit = 10;
 
-
   # Define your hostname
   networking.hostName = "gaminix";
   # Enable networking
-  networking.networkmanager.enable = true; 
+  networking.networkmanager.enable = true;
   # Bluethooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -59,12 +62,11 @@
 
     #isDefault
     #wireplumber.enable= true;
-  
+
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
 
   # Set your time zone.
   time.timeZone = "America/Toronto";
@@ -102,14 +104,13 @@
   # Do nothing if AC on
   services.logind.lidSwitchExternalPower = "ignore";
   #tlp
-  services.tlp.enable = true;
+  #services.tlp.enable = true;
   #upower dbus
   services.upower.enable = true;
   powerManagement = {
     enable = true;
     cpuFreqGovernor = "ondemand";
- };
-
+  };
 
   #Display
   # Enable Gnome login
@@ -117,26 +118,25 @@
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.dbus.packages = [pkgs.dconf];
- 
-  #xdg  
-    xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        #xdg-desktop-portal-hyprland
-        xdg-desktop-portal-wlr
+
+  #xdg
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      #xdg-desktop-portal-hyprland
+      xdg-desktop-portal-wlr
     ];
     wlr.enable = true;
   };
 
-
   #SystemPackages
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   environment.systemPackages = with pkgs; [
- # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     vim
     zig
     wget
@@ -168,14 +168,13 @@
     yq-go
   ];
 
-
   #Firewall
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-    #For Chromecast from chrome
-    #networking.firewall.allowedUDPPortRanges = [ { from = 32768; to = 60999; } ];
+  #For Chromecast from chrome
+  #networking.firewall.allowedUDPPortRanges = [ { from = 32768; to = 60999; } ];
   # Or disable the firewall altogether.
-   networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -184,7 +183,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
-
 }
-
-
