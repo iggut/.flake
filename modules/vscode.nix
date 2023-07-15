@@ -38,11 +38,6 @@ in {
         usernamehw.errorlens
         vadimcn.vscode-lldb
         xaver.clang-format
-        johnnymorganz.stylua
-        ms-python.black-formatter
-        ms-python.python
-        rvest.vs-code-prettier-eslint
-        sndst00m.markdown-github-dark-pack
       ]
       ++ marketplace-extensions;
 
