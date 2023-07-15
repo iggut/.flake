@@ -4,15 +4,7 @@
   lib,
   pkgs,
   ...
-}: let
-  marketplace-extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-    johnnymorganz.stylua
-    ms-python.black-formatter
-    ms-python.python
-    rvest.vs-code-prettier-eslint
-    sndst00m.markdown-github-dark-pack
-  ];
-in {
+}:{
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = true;
@@ -38,8 +30,7 @@ in {
         usernamehw.errorlens
         vadimcn.vscode-lldb
         xaver.clang-format
-      ]
-      ++ marketplace-extensions;
+      ];
 
     userSettings = {
       breadcrumbs.enabled = false;
@@ -53,14 +44,8 @@ in {
       "[cpp]".editor.defaultFormatter = "xaver.clang-format";
       "[css]".editor.defaultFormatter = "esbenp.prettier-vscode";
       "[html]".editor.defaultFormatter = "esbenp.prettier-vscode";
-      "[javascript]".editor.defaultFormatter = "rvest.vs-code-prettier-eslint";
       "[json]".editor.defaultFormatter = "esbenp.prettier-vscode";
-      "[jsonc]".editor.defaultFormatter = "rvest.vs-code-prettier-eslint";
-      "[lua]".editor.defaultFormatter = "johnnymorganz.stylua";
       "[nix]".editor.defaultFormatter = "kamadorueda.alejandra";
-      "[rust]".editor.defaultFormatter = "rust-lang.rust-analyzer";
-      "[scss]".editor.defaultFormatter = "sibiraj-s.vscode-scss-formatter";
-      "[typescript]".editor.defaultFormatter = "rvest.vs-code-prettier-eslint";
       "[python]".editor = {
         defaultFormatter = "ms-python.black-formatter";
         formatOnType = true;
