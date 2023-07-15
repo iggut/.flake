@@ -7,15 +7,17 @@
   };
 
 # Include the results of the hardware scan.
-    imports = [ ./hardware-configuration.nix 
-    ./modules/vm.nix
-    ./modules/shell.nix
-    ./modules/users.nix
-    ./modules/nvidia.nix];
-
+    imports = [ 
+      ./disks.nix 
+      ./hardware-configuration.nix
+      ./modules/vm.nix
+      ./modules/shell.nix
+      ./modules/users.nix
+      ./modules/nvidia.nix
+    ];
 
   #ntfs support
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "btrfs" "ntfs" ];
   # Fonts
     fonts.fonts = with pkgs; [
       font-awesome
@@ -28,13 +30,13 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
   # Boot entries limit
-  boot.loader.systemd-boot.configurationLimit = 3;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
 
   # Define your hostname
-  networking.hostName = "unkown";
+  networking.hostName = "gaminix";
   # Enable networking
   networking.networkmanager.enable = true; 
   # Bluethooth
@@ -62,19 +64,19 @@
 
 
   # Set your time zone.
-  time.timeZone = "Asia/Kuwait";
+  time.timeZone = "America/Toronto";
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
   # Configure keymap in X11
   services.xserver = {

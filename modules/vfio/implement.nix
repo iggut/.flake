@@ -13,11 +13,11 @@
 
 #pci-passthroughnix
 
-      pciPassthrough = {
+  pciPassthrough = {
     enable = true;
     pciIDs = "10de:1ba1,10de:10f0";
     cpuType = "intel";
-    libvirtUsers = [ "nomad" ];[
+    libvirtUsers = [ "iggut" ];
   };
 
 

@@ -10,7 +10,7 @@
 
   outputs = { self, nixpkgs, hyprland, home-manager, ... }: 
     let
-      user = "nomad";
+      user = "iggut";
       system = "x86_64-linux";
       pkgs = import nixpkgs {
        inherit system;
