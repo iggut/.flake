@@ -3,6 +3,7 @@
   pkgs,
   self,
   user,
+  inputs,
   ...
 }: {
   imports = [
