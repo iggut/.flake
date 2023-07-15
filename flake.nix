@@ -35,8 +35,13 @@
         ${user} = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {inherit user;};
-          modules = [ ./configuration.nix 
+          modules = [  
             disko.nixosModules.disko
+            ./disko-config.nix
+            {
+              _module.args.disks = [ "/dev/nvme1n1" ];
+            }
+            ./configuration.nix
             hyprland.nixosModules.default
             {
               programs.hyprland.enable = true;

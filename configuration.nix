@@ -8,8 +8,6 @@
 
 # Include the results of the hardware scan.
     imports = [ 
-      #inputs.disko.nixosModules.disko
-      (import ./disks.nix {}) 
       ./hardware-configuration.nix
       ./modules/vm.nix
       ./modules/shell.nix
