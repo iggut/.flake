@@ -42,10 +42,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         --mode zap_create_mount \
         "./disko-config.nix"
 
+    sudo nixos-install --flake ".#${TARGET_HOST}"
+
     sudo cp -r .config /mnt/home/"${TARGET_HOST}"/
     sudo chown -R "${TARGET_HOST}":"${TARGET_HOST}" ~/.config  # Fix ownership of .config folder
-
-    sudo nixos-install --flake ".#${TARGET_HOST}"
 
     # If there is a keyfile for a data disk, put copy it to the root partition and
     # ensure the permissions are set appropriately.
