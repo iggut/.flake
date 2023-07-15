@@ -43,7 +43,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         "./disko-config.nix"
 
     sudo cp -r .config /mnt/home/"${TARGET_HOST}"/
-    sudo chown -R "${TARGET_HOST}": ~/.config  # Fix ownership of .config folder
+    sudo chown -R "$TARGET_HOST": ~/.config  # Fix ownership of .config folder
 
     sudo nixos-install --flake ".#${TARGET_HOST}"
 
