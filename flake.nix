@@ -6,8 +6,6 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +23,6 @@
     hyprland,
     home-manager,
     disko,
-    nix-vscode-extensions,
     ...
   }: let
     user = "iggut";

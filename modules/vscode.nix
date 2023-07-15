@@ -4,15 +4,7 @@
   lib,
   pkgs,
   ...
-}: let
-  marketplace-extensions = with ${pkgs.system}.vscode-marketplace; [
-    johnnymorganz.stylua
-    ms-python.black-formatter
-    ms-python.python
-    rvest.vs-code-prettier-eslint
-    sndst00m.markdown-github-dark-pack
-  ];
-in {
+}:{
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = true;
@@ -38,8 +30,7 @@ in {
         usernamehw.errorlens
         vadimcn.vscode-lldb
         xaver.clang-format
-      ]
-      ++ marketplace-extensions;
+      ];
 
     userSettings = {
       breadcrumbs.enabled = false;
