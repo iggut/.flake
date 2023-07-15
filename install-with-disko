@@ -11,12 +11,12 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 
 if [[ -z "$TARGET_HOST" ]]; then
-    echo "ERROR! $(basename "${0}") requires a hostname as the first argument"
+    echo "ERROR! $(basename "${0}") requires a username as the first argument"
     exit 1
 fi
 
-if [ ! -e "host/${TARGET_HOST}/disks.nix" ]; then
-  echo "ERROR! $(basename "${0}") could not find the required host/${TARGET_HOST}/disks.nix"
+if [ ! -e "./disko-config.nix" ]; then
+  echo "ERROR! $(basename "${0}") could not find the required file disko-config.nix"
   exit 1
 fi
 
@@ -41,6 +41,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         -- \
         --mode zap_create_mount \
         "./disko-config.nix"
+
+    cp -r .config ~/
+    chown -R ${TARGET_HOST}: ~/.config  # Fix ownership of .config folder
+    sleep 1
 
     sudo nixos-install --flake ".#${TARGET_HOST}"
 
