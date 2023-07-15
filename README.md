@@ -18,6 +18,16 @@ Added some more features in waybar
 
 
 <b>Usage:</b><br>
+MAKE SURE YOU CHANGE THE DISK variable WITH YOUR TARGET DISK. The script will format the drive.
+
+1. clone
+    > gh repo clone iggut/.flake
+2. follow step 4 from old guide
+3. follow the installer (replace 'iggut' in command below with chosen one from the step above)
+    > bash install-with-disko iggut 
+
+
+-OLD-
 First Install NixOS with any GUI you like to proceed from there<br>
     👣Gnome NixOS<br>
     🔗https://channels.nixos.org/nixos-23.05/latest-nixos-gnome-x86_64-linux.iso
