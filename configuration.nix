@@ -8,14 +8,14 @@
 
 # Include the results of the hardware scan.
     imports = [ 
-      ./disks.nix 
+      #inputs.disko.nixosModules.disko
+      (import ./disks.nix {}) 
       ./hardware-configuration.nix
       ./modules/vm.nix
       ./modules/shell.nix
       ./modules/users.nix
       ./modules/nvidia.nix
       ./modules/yubikey.nix
-      ./modules/brave.nix
       ./services/mullvad.nix
       ./services/fwupd.nix
       ./services/swapfile.nix

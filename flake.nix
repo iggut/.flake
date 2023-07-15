@@ -13,10 +13,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
+
   };
 
 
-  outputs = { self, nixpkgs, hyprland, home-manager, ... }: 
+  outputs = { self, nixpkgs, hyprland, home-manager, disko, ... }: 
     let
       user = "iggut";
       system = "x86_64-linux";
@@ -31,7 +36,7 @@
           inherit system;
           specialArgs = {inherit user;};
           modules = [ ./configuration.nix 
-              
+            disko.nixosModules.disko
             hyprland.nixosModules.default
             {
               programs.hyprland.enable = true;
