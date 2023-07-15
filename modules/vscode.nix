@@ -4,37 +4,47 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  marketplace-extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+    johnnymorganz.stylua
+    ms-python.black-formatter
+    ms-python.python
+    rvest.vs-code-prettier-eslint
+    sndst00m.markdown-github-dark-pack
+  ];
+in {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = true;
-    extensions = with pkgs.vscode-extensions; [
-      bbenoist.nix
-      catppuccin.catppuccin-vsc
-      dbaeumer.vscode-eslint
-      eamodio.gitlens
-      esbenp.prettier-vscode
-      github.copilot
-      golang.go
-      kamadorueda.alejandra
-      mkhl.direnv
-      ms-python.vscode-pylance
-      ms-vscode.cpptools
-      naumovs.color-highlight
-      oderwat.indent-rainbow
-      pkief.material-product-icons
-      pkief.material-icon-theme
-      oderwat.indent-rainbow
-      sumneko.lua
-      usernamehw.errorlens
-      vadimcn.vscode-lldb
-      xaver.clang-format
-      johnnymorganz.stylua
-      ms-python.black-formatter
-      ms-python.python
-      rvest.vs-code-prettier-eslint
-      sndst00m.markdown-github-dark-pack
-    ];
+    extensions = with pkgs.vscode-extensions;
+      [
+        bbenoist.nix
+        catppuccin.catppuccin-vsc
+        dbaeumer.vscode-eslint
+        eamodio.gitlens
+        esbenp.prettier-vscode
+        github.copilot
+        golang.go
+        kamadorueda.alejandra
+        mkhl.direnv
+        ms-python.vscode-pylance
+        ms-vscode.cpptools
+        naumovs.color-highlight
+        oderwat.indent-rainbow
+        pkief.material-product-icons
+        pkief.material-icon-theme
+        oderwat.indent-rainbow
+        sumneko.lua
+        usernamehw.errorlens
+        vadimcn.vscode-lldb
+        xaver.clang-format
+        johnnymorganz.stylua
+        ms-python.black-formatter
+        ms-python.python
+        rvest.vs-code-prettier-eslint
+        sndst00m.markdown-github-dark-pack
+      ]
+      ++ marketplace-extensions;
 
     userSettings = {
       breadcrumbs.enabled = false;
