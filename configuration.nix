@@ -162,6 +162,9 @@
     tree
     unzip
     usbutils
+    vulkan-tools
+    glxinfo
+    cmatrix
     yq-go
   ];
 
