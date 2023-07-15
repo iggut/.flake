@@ -43,6 +43,13 @@
 
   #Hyprland
   home.sessionVariables = {
+    # make stuff work on wayland
+    #QT_QPA_PLATFORM = "wayland-egl";
+    CLUTTER_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    #SDL_VIDEODRIVER = "wayland";
+    XDG_SESSION_TYPE = "wayland";
+
     BROWSER = "brave";
     TERMINAL = "kitty";
     XDG_CACHE_HOME = "\${HOME}/.cache";
