@@ -4,8 +4,8 @@
     yubikey-manager-qt
     yubico-pam
     yubioath-flutter
-    gnome3.dconf
-    gnome3.vte
+    gnome.dconf
+    gnome.vte
     gnome.gnome-tweaks
   ];
 
@@ -15,10 +15,10 @@
     dbus = {
       enable = true;
       # Make the gnome keyring work properly
-      packages = [pkgs.gnome3.gnome-keyring pkgs.gcr];
+      packages = [pkgs.gnome.gnome-keyring pkgs.gcr];
     };
 
-    gnome3.gnome-keyring.enable = true;
+    gnome.gnome-keyring.enable = true;
   };
 
   # Enable the smartcard daemon
