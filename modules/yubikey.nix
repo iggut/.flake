@@ -5,7 +5,6 @@
     yubico-pam
     yubico-piv-tool
     yubioath-flutter
-    yubioath-desktop
     yubikey-personalization-gui
     gnome.gnome-tweaks
     gnome.gnome-keyring

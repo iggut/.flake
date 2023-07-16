@@ -15,8 +15,6 @@
   home.username = "iggut";
   home.homeDirectory = "/home/iggut";
 
-  programs.dconf.enable = true;
-
   #Gtk
   gtk = {
     enable = true;
@@ -45,18 +43,21 @@
     };
   };
 
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
+  systemd.user.services = {
+    polkit-gnome = {
+      Unit = {
+        Description = "polkit-gnome";
+        Documentation = ["man:polkit(8)"];
+        PartOf = ["hyprland-session.target"];
+      };
+      Service = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+        RestartSec = 3;
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = ["hyprland-session.target"];
       };
     };
   };
