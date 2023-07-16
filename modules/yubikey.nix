@@ -4,8 +4,6 @@
     yubikey-manager-qt
     yubico-pam
     yubioath-flutter
-    gnome.dconf
-    gnome.vte
     gnome.gnome-tweaks
   ];
 
