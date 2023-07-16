@@ -43,21 +43,18 @@
     };
   };
 
-  systemd.user.services = {
-    polkit-gnome = {
-      Unit = {
-        Description = "polkit-gnome";
-        Documentation = ["man:polkit(8)"];
-        PartOf = ["graphical-session.target"];
-      };
-      Service = {
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
+      serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        RestartSec = 3;
-        Restart = "always";
-      };
-      Install = {
-        WantedBy = ["graphical-session.target"];
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
       };
     };
   };
