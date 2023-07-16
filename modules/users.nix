@@ -1,63 +1,72 @@
-{ config, pkgs, lib, inputs, user, ... }:
 {
-
-
+  config,
+  pkgs,
+  lib,
+  inputs,
+  user,
+  ...
+}: {
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${user} = {
+  users.users.iggut = {
     isNormalUser = true;
     initialPassword = "nixos";
-    description = "${user}";
-    extraGroups = [ "networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm" ];
+    description = "iggut";
+    extraGroups = ["networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm"];
     packages = with pkgs; [
-     neovim
-     brave
-     swaylock-effects swayidle wlogout swaybg  #Login etc..  
-     waybar                                    #topbar 
-     wayland-protocols
-     libsForQt5.qt5.qtwayland
-     kanshi                                    #laptop dncies
-     rofi mako rofimoji                        #Drawer + notifications
-     jellyfin-ffmpeg                           #multimedia libs
-     viewnior                                  #image viewr
-     pavucontrol                               #Volume control
-     xfce.thunar                               #filemanager
-     xfce.xfconf
-     gnome-text-editor
-     gnome.file-roller
-     gnome.gnome-font-viewer
-     gnome.gnome-calculator
-     vlc                                       #Video player
-     amberol                                   #Music player
-     cava                                      #Sound Visualized
-     wl-clipboard                              
-     wf-recorder                               #Video recorder
-     sway-contrib.grimshot                     #Screenshot
-     ffmpegthumbnailer                         #thumbnailer
-     playerctl                                 #play,pause..
-     pamixer                                   #mixer
-     brightnessctl                             #Brightness control
-     ####GTK Customization####
-     nordic
-     papirus-icon-theme
-     gtk3
-     glib
-     xcur2png
-     rubyPackages.glib2
-     libcanberra-gtk3                          #notification sound
-     #########System#########
-     kitty
-     gnome.gnome-system-monitor
-     libnotify
-     poweralertd
-     dbus
-     #gsettings-desktop-schemas
-     #wrapGAppsHook
-     #xdg-desktop-portal-hyprland
-     ####photoshop dencies####
-     gnome.zenity
-     wine64Packages.waylandFull
-     curl
-     #########################
+      neovim
+      brave
+      swaylock-effects
+      swayidle
+      wlogout
+      swaybg #Login etc..
+      waybar #topbar
+      wayland-protocols
+      libsForQt5.qt5.qtwayland
+      kanshi #laptop dncies
+      rofi
+      mako
+      rofimoji #Drawer + notifications
+      jellyfin-ffmpeg #multimedia libs
+      viewnior #image viewr
+      pavucontrol #Volume control
+      xfce.thunar #filemanager
+      xfce.xfconf
+      gnome-text-editor
+      gnome.file-roller
+      gnome.gnome-font-viewer
+      gnome.gnome-calculator
+      vlc #Video player
+      amberol #Music player
+      cava #Sound Visualized
+      wl-clipboard
+      wf-recorder #Video recorder
+      sway-contrib.grimshot #Screenshot
+      ffmpegthumbnailer #thumbnailer
+      playerctl #play,pause..
+      pamixer #mixer
+      brightnessctl #Brightness control
+      ####GTK Customization####
+      nordic
+      papirus-icon-theme
+      gtk3
+      glib
+      xcur2png
+      rubyPackages.glib2
+      libcanberra-gtk3 #notification sound
+      #########System#########
+      kitty
+      gnome.gnome-system-monitor
+      libnotify
+      poweralertd
+      dbus
+      #gsettings-desktop-schemas
+      #wrapGAppsHook
+      #xdg-desktop-portal-hyprland
+      ####photoshop dencies####
+      gnome.zenity
+      wine64Packages.waylandFull
+      curl
+      #########################
     ];
   };
 
@@ -73,8 +82,9 @@
     thunar-archive-plugin
     thunar-volman
   ];
-  services.gvfs.enable = true; 
+  services.gvfs.enable = true;
   services.tumbler.enable = true;
+  services.udisks2.enable = true;
 
   #gnome outside gnome
   programs.dconf.enable = lib.mkDefault true;
@@ -89,12 +99,16 @@
   programs = {
     _1password-gui = {
       enable = true;
-      polkitPolicyOwners = [ "${user}" ];
-    }; 
+      polkitPolicyOwners = ["iggut"];
+    };
   };
-  
+
+  programs.adb.enable = true;
+
+  programs.seahorse.enable = true;
+
   #DIRS
-    environment.etc."xdg/user-dirs.defaults".text= ''
+  environment.etc."xdg/user-dirs.defaults".text = ''
     DESKTOP=$HOME/Desktop
     DOWNLOAD=$HOME/Downloads
     TEMPLATES=$HOME/Templates
@@ -102,19 +116,16 @@
     DOCUMENTS=$HOME/Documents
     MUSIC=$HOME/Music
     PICTURES=$HOME/Photos
-    VIDEOS=$HOME/Video 
-    '';
+    VIDEOS=$HOME/Video
+  '';
 
-
-   #Overlays
-    #Waybar wlr/Workspaces
-    nixpkgs.overlays = [
+  #Overlays
+  #Waybar wlr/Workspaces
+  nixpkgs.overlays = [
     (self: super: {
       waybar = super.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
       });
     })
-    ];
-
-
+  ];
 }

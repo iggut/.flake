@@ -119,17 +119,8 @@
   # Enable Gnome login
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.gnome.enable = false;
   services.dbus.packages = [pkgs.dconf];
-
-  #xdg
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-  };
 
   #SystemPackages
   # List packages installed in system profile. To search, run:
@@ -168,6 +159,9 @@
     vulkan-tools
     glxinfo
     cmatrix
+    wdisplays
+    nvtop
+    btop
     yq-go
   ];
 

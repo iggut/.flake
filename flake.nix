@@ -39,7 +39,7 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      ${user} = nixpkgs.lib.nixosSystem {
+      iggut = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit user;};
         modules = [
@@ -60,7 +60,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit user;};
-            home-manager.users.${user} = import ./modules/home.nix;
+            home-manager.users.iggut = import ./modules/home.nix;
           }
         ];
       };
