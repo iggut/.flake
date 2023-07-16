@@ -44,9 +44,6 @@
       wf-recorder #Video recorder
       sway-contrib.grimshot #Screenshot
       ffmpegthumbnailer #thumbnailer
-      pinentry-gnome
-      qgnomeplatform
-      polkit_gnome
       playerctl #play,pause..
       pamixer #mixer
       brightnessctl #Brightness control
@@ -117,7 +114,7 @@
   services.udisks2.enable = true;
 
   #gnome outside gnome
-  programs.dconf.enable = lib.mkDefault true;
+  programs.dconf.enable = true;
 
   #Steam
   programs.steam = {

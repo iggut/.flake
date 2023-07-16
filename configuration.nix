@@ -121,6 +121,7 @@
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = false;
   services.dbus.packages = [pkgs.dconf];
+  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   #SystemPackages
   # List packages installed in system profile. To search, run:
@@ -128,6 +129,18 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   environment.systemPackages = with pkgs; [
     # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    pinentry-gnome
+    qgnomeplatform
+    polkit_gnome
+    xfce.thunar #filemanager
+    xfce.xfconf
+    xfce.thunar-volman
+    gnome-text-editor
+    gnome.file-roller
+    gnome.adwaita-icon-theme
+    gnome.evince
+    gnome.gnome-font-viewer
+    gnome.gnome-calculator
     vim
     zig
     wget

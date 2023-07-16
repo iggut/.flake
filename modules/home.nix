@@ -15,6 +15,8 @@
   home.username = "iggut";
   home.homeDirectory = "/home/iggut";
 
+  programs.dconf.enable = true;
+
   #Gtk
   gtk = {
     enable = true;
