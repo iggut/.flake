@@ -123,13 +123,13 @@
   services.dbus.packages = [pkgs.dconf];
 
   #xdg
-  #xdg.portal = {
-  #  enable = true;
-  #  xdgOpenUsePortal = true;
-  #  extraPortals = with pkgs; [
-  #    xdg-desktop-portal-gtk
-  #  ];
-  #};
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+  };
 
   #SystemPackages
   # List packages installed in system profile. To search, run:
