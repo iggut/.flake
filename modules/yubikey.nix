@@ -40,4 +40,13 @@
       export SSH_AUTH_SOCK
     '';
   };
+  security.pam.services = [
+    { name = "gnome_keyring"
+      text = ''
+        auth     optional    ${gnome.gnome_keyring}/lib/security/pam_gnome_keyring.so
+        session  optional    ${gnome.gnome_keyring}/lib/security/pam_gnome_keyring.so auto_start
+        password  optional    ${gnome.gnome_keyring}/lib/security/pam_gnome_keyring.so
+      '';
+    }
+  ];
 }

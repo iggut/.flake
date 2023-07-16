@@ -33,6 +33,8 @@
       xfce.xfconf
       gnome-text-editor
       gnome.file-roller
+      gnome.adwaita-icon-theme
+      gnome.evince
       gnome.gnome-font-viewer
       gnome.gnome-calculator
       vlc #Video player
@@ -42,6 +44,9 @@
       wf-recorder #Video recorder
       sway-contrib.grimshot #Screenshot
       ffmpegthumbnailer #thumbnailer
+      pinentry-gnome
+      qgnomeplatform
+      polkit_gnome
       playerctl #play,pause..
       pamixer #mixer
       brightnessctl #Brightness control
