@@ -5,6 +5,7 @@
     yubico-pam
     yubioath-flutter
     gnome.gnome-tweaks
+    gnome.gnome-keyring
   ];
 
   services = {
@@ -32,10 +33,11 @@
   };
   security.polkit.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
-  # Automatically unlock gnome_keyring (gdm is supposed to do this but doesn't when using i3 wm).
-  security.pam.services.gnome_keyring.text = ''
-    auth     optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-    session  optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
-    password optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-  '';
+  # Automatically unlock gnome_keyring (gdm is supposed to do this but doesn't when using hyprland).
+  services.xserver.displayManager = {
+    sessionCommands = ''
+      eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize)
+      export SSH_AUTH_SOCK
+    '';
+  };
 }
