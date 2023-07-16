@@ -20,9 +20,15 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    alejandra = {
+      url = "github:kamadorueda/alejandra/3.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
+    alejandra,
     self,
     nixpkgs,
     hyprland,
@@ -43,6 +49,9 @@
         inherit system;
         specialArgs = {inherit user;};
         modules = [
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
           disko.nixosModules.disko
           ./disko-config.nix
           {
