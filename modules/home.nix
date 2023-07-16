@@ -37,7 +37,7 @@
   qt = {
     enable = true;
     platformTheme = "gnome";
-    style = lib.mkForce {
+    style = {
       name = "adwaita";
       package = pkgs.adwaita-qt;
     };

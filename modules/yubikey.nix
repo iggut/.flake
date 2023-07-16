@@ -36,20 +36,4 @@
   };
   security.polkit.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
-  security.pam.services.login.enableGnomeKeyring = true;
-  # Automatically unlock gnome_keyring (gdm is supposed to do this but doesn't when using hyprland).
-
-  security.pam.services.gnome_keyring.text = ''
-    account  include    login
-
-    auth     requisite  pam_nologin.so
-    auth     required   pam_succeed_if.so uid >= 1000 quiet
-    auth     sufficient ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=challenge-response authfile=/etc/yubikey_mappings
-    auth     optional   ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-    auth     include    login
-
-    password optional   ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so use_authok
-
-    session  include    login
-  '';
 }

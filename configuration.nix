@@ -144,6 +144,7 @@
     duf
     exa
     fd
+    lsd
     file
     gotop
     helix
@@ -166,7 +167,6 @@
     yq-go
     onlyoffice-bin # Microsoft Office alternative for Linux
     xorg.xhost # Use x.org server with distrobox
-    agent
     qbittorrent
     xdg-utils
   ];
