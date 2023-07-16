@@ -1,0 +1,89 @@
+/etc/pam.d/login
+account required pam_unix.so
+
+# Authentication management.
+auth sufficient /nix/store/4h05fg0ndbks292drp056xbsfr87zg58-yubico-pam-2.27/lib/security/pam_yubico.so mode=challenge-response   debug
+auth optional pam_unix.so nullok  likeauth
+auth optional /nix/store/pblicm7mrn993vff4a7ijyj6vh2bv7js-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so
+auth sufficient pam_unix.so nullok  likeauth try_first_pass
+auth required pam_deny.so
+
+# Password management.
+password sufficient pam_unix.so nullok yescrypt
+password optional /nix/store/pblicm7mrn993vff4a7ijyj6vh2bv7js-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so use_authtok
+
+# Session management.
+session required pam_env.so conffile=/etc/pam/environment readenv=0
+session required pam_unix.so
+session required pam_loginuid.so
+session required /nix/store/pf15y6ncpm5jss9cfxfb6vy9nw53sbld-linux-pam-1.5.2/lib/security/pam_lastlog.so silent
+session optional /nix/store/3dvqpndk3sqxwjqlcbm39a0k20skhs8c-systemd-253.5/lib/security/pam_systemd.so
+session optional /nix/store/pblicm7mrn993vff4a7ijyj6vh2bv7js-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so auto_start
+
+
+/etc/pam.d/gdm-password
+auth      substack      login
+account   include       login
+password  substack      login
+session   include       login
+
+
+/etc/pam.d/sudo
+# Account management.
+account required pam_unix.so
+
+# Authentication management.
+auth sufficient /nix/store/4h05fg0ndbks292drp056xbsfr87zg58-yubico-pam-2.27/lib/security/pam_yubico.so mode=challenge-response   debug
+auth sufficient pam_unix.so   likeauth try_first_pass
+auth required pam_deny.so
+
+# Password management.
+password sufficient pam_unix.so nullok yescrypt
+
+# Session management.
+session required pam_env.so conffile=/etc/pam/environment readenv=0
+session required pam_unix.so
+
+
+/etc/pam.d/su
+# Account management.
+account required pam_unix.so
+
+# Authentication management.
+auth sufficient pam_rootok.so
+auth required pam_faillock.so
+auth sufficient /nix/store/4h05fg0ndbks292drp056xbsfr87zg58-yubico-pam-2.27/lib/security/pam_yubico.so mode=challenge-response   debug
+auth sufficient pam_unix.so   likeauth try_first_pass
+auth required pam_deny.so
+
+# Password management.
+password sufficient pam_unix.so nullok yescrypt
+
+# Session management.
+session required pam_env.so conffile=/etc/pam/environment readenv=0
+session required pam_unix.so
+session optional pam_xauth.so xauthpath=/nix/store/7nzwjdziz7c3fm4vlzibh6mhg5fn9g84-xauth-1.1.2/bin/xauth systemuser=99
+
+
+/etc/pam.d/gnome_keyring
+auth     optional    /nix/store/pblicm7mrn993vff4a7ijyj6vh2bv7js-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so
+session  optional    /nix/store/pblicm7mrn993vff4a7ijyj6vh2bv7js-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so auto_start
+
+password  optional    /nix/store/pblicm7mrn993vff4a7ijyj6vh2bv7js-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so
+
+
+/etc/pam.d/polkit-1
+# Account management.
+account required pam_unix.so
+
+# Authentication management.
+auth sufficient /nix/store/4h05fg0ndbks292drp056xbsfr87zg58-yubico-pam-2.27/lib/security/pam_yubico.so mode=challenge-response   debug
+auth sufficient pam_unix.so   likeauth try_first_pass
+auth required pam_deny.so
+
+# Password management.
+password sufficient pam_unix.so nullok yescrypt
+
+# Session management.
+session required pam_env.so conffile=/etc/pam/environment readenv=0
+session required pam_unix.so

@@ -27,17 +27,38 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
+    gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
 
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = lib.mkForce {
+      name = "adwaita";
+      package = pkgs.adwaita-qt;
     };
+  };
 
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+  systemd.user.services = {
+    polkit-gnome = {
+      Unit = {
+        Description = "polkit-gnome";
+        Documentation = ["man:polkit(8)"];
+        PartOf = ["graphical-session.target"];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        RestartSec = 3;
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
     };
   };
 

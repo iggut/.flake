@@ -3,9 +3,12 @@
     yubikey-manager
     yubikey-manager-qt
     yubico-pam
+    yubico-piv-tool
     yubioath-flutter
+    yubikey-personalization-gui
     gnome.gnome-tweaks
     gnome.gnome-keyring
+    pam_u2f
   ];
 
   services = {
@@ -14,7 +17,7 @@
     dbus = {
       enable = true;
       # Make the gnome keyring work properly
-      packages = [pkgs.gnome.gnome-keyring pkgs.gcr];
+      packages = [pkgs.gcr];
     };
 
     gnome.gnome-keyring.enable = true;
@@ -33,17 +36,20 @@
   };
   security.polkit.enable = true;
   security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
   # Automatically unlock gnome_keyring (gdm is supposed to do this but doesn't when using hyprland).
-  services.xserver.displayManager = {
-    sessionCommands = ''
-      eval $(/run/wrappers/bin/gnome-keyring-daemon --start --daemonize)
-      export SSH_AUTH_SOCK
-    '';
-  };
-  security.pam.services.gnome_keyring.text = ''
-    auth     optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
-    session  optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
 
-    password  optional    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
+  security.pam.services.gnome_keyring.text = ''
+    account  include    login
+
+    auth     requisite  pam_nologin.so
+    auth     required   pam_succeed_if.so uid >= 1000 quiet
+    auth     sufficient ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=challenge-response authfile=/etc/yubikey_mappings
+    auth     optional   ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
+    auth     include    login
+
+    password optional   ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so use_authok
+
+    session  include    login
   '';
 }

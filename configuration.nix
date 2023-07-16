@@ -161,9 +161,18 @@
     cmatrix
     wdisplays
     nvtop
+    ntfs3g
     btop
     yq-go
+    onlyoffice-bin # Microsoft Office alternative for Linux
+    xorg.xhost # Use x.org server with distrobox
+    agent
+    qbittorrent
+    xdg-utils
   ];
+
+  # Disable coredumps
+  systemd.coredump.enable = false;
 
   #Firewall
   # Open ports in the firewall.

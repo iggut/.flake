@@ -82,6 +82,31 @@
     '';
   };
 
+  # Automatically tune nice levels
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp;
+  };
+
+  # Get notifications about earlyoom actions
+  services.systembus-notify.enable = true;
+
+  # 90% ZRAM as swap
+  zramSwap = {
+    algorithm = "zstd";
+    enable = true;
+    memoryPercent = 90;
+  };
+
+  # Earlyoom to prevent OOM situations
+  services.earlyoom = {
+    enable = true;
+    enableNotifications = true;
+    freeMemThreshold = 5;
+  };
+
+  services.openssh.enable = true;
+
   #thunar dencies
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
@@ -102,6 +127,8 @@
   };
 
   programs = {
+    #nm-applet.enable = true; # Network manager tray icon
+    kdeconnect.enable = true; # Connect phone to PC
     _1password-gui = {
       enable = true;
       polkitPolicyOwners = ["iggut"];
@@ -112,17 +139,21 @@
 
   programs.seahorse.enable = true;
 
-  #DIRS
-  environment.etc."xdg/user-dirs.defaults".text = ''
-    DESKTOP=$HOME/Desktop
-    DOWNLOAD=$HOME/Downloads
-    TEMPLATES=$HOME/Templates
-    PUBLICSHARE=$HOME/Public
-    DOCUMENTS=$HOME/Documents
-    MUSIC=$HOME/Music
-    PICTURES=$HOME/Photos
-    VIDEOS=$HOME/Video
-  '';
+  # Configure system services
+  environment.etc = {
+    "polkit-gnome".source = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+    "kdeconnectd".source = "${pkgs.libsForQt5.kdeconnect-kde}/libexec/kdeconnectd";
+    "xdg/user-dirs.defaults".text = ''
+      DESKTOP=$HOME/Desktop
+      DOWNLOAD=$HOME/Downloads
+      TEMPLATES=$HOME/Templates
+      PUBLICSHARE=$HOME/Public
+      DOCUMENTS=$HOME/Documents
+      MUSIC=$HOME/Music
+      PICTURES=$HOME/Photos
+      VIDEOS=$HOME/Video
+    '';
+  };
 
   #Overlays
   #Waybar wlr/Workspaces
