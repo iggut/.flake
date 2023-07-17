@@ -153,6 +153,8 @@
 
   programs.seahorse.enable = true;
 
+  programs.command-not-found.enable = false;
+
   # Configure system services
   environment.etc = {
     "polkit-gnome".source = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
