@@ -79,6 +79,7 @@
       xcur2png
       rubyPackages.glib2
       libcanberra-gtk3 #notification sound
+      nix-index
       #########System#########
       kitty
       gnome.gnome-system-monitor
