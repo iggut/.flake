@@ -45,7 +45,7 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      gaminix = nixpkgs.lib.nixosSystem {
+      iggut = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit user;};
         modules = [
@@ -53,11 +53,11 @@
             environment.systemPackages = [alejandra.defaultPackage.${system}];
           }
           disko.nixosModules.disko
-          ./hosts/gaminix/disko-config.nix
+          ./disko-config.nix
           {
             _module.args.disks = ["/dev/nvme1n1"];
           }
-          ./hosts/gaminix/configuration.nix
+          ./configuration.nix
           hyprland.nixosModules.default
           {
             programs.hyprland.enable = true;
@@ -74,6 +74,8 @@
         ];
       };
     };
+
+    nixosConfigurations = {
       gs66 = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit user;};
@@ -84,7 +86,7 @@
           disko.nixosModules.disko
           ./hosts/gs66/disko-config.nix
           {
-            _module.args.disks = ["/dev/nvme1n1"];
+            _module.args.disks = ["/dev/nvme0n1"];
           }
           ./hosts/gs66/configuration.nix
           hyprland.nixosModules.default
