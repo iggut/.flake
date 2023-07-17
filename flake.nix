@@ -57,7 +57,7 @@
           {
             _module.args.disks = ["/dev/nvme1n1"];
           }
-          ./configuration.nix
+          ./hosts/gaminix/configuration.nix
           hyprland.nixosModules.default
           {
             programs.hyprland.enable = true;
@@ -86,7 +86,7 @@
           {
             _module.args.disks = ["/dev/nvme1n1"];
           }
-          ./configuration.nix
+          ./hosts/gs66/configuration.nix
           hyprland.nixosModules.default
           {
             programs.hyprland.enable = true;
