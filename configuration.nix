@@ -177,7 +177,6 @@
     duf
     exa
     fd
-    lsd
     file
     gotop
     helix

@@ -8,23 +8,23 @@ alias lg = lazygit
 alias ld = lazydocker
 alias l = exa -ughH --icons
 alias la = exa -alughH --git --icons
+alias ll = exa -alughH --git --icons
 alias calc = eva
 alias c = clear
 alias cat = bat
 alias rm = rm -i
 alias cp = cp -i
 alias mv = mv -i
-alias sakura = nix run github:serokell/deploy-rs ".#sakura"
-alias kariru = nix run github:serokell/deploy-rs ".#kariru"
-alias yuki = nix run github:serokell/deploy-rs ".#yuki"
-alias arashi = nix run github:serokell/deploy-rs ".#arashi"
-alias sora = nix run github:serokell/deploy-rs ".#sora"
-alias dx = nix run "nixpkgs#deadnix"
-alias sx = nix run "nixpkgs#statix" -- check
-alias sxfix = nix run "nixpkgs#statix" -- fix
 alias dl = yt-dlp -P ~/Videos/downloaded
 alias dlcd = yt-dlp
-alias up = rpaste -s "https://img.notohh.dev/" -e 1day
+alias clean = sudo nix-collect-garbage -d
+alias cleanold = sudo nix-collect-garbage --delete-old
+alias gamesteam = gamescope -e -w 1920 -h 1080 -f -F nis -- steam -tenfoot
+alias looking-game = gamescope -w 1920 -h 1080 -f -F nis -- looking-glass-client -m KEY_INSERT -F
+alias mva = rsync -rP --remove-source-files
+alias rebuilds = sudo nixos-rebuild switch --flake /home/iggut/.snow#iggut
+alias rebuildb = sudo nixos-rebuild boot --flake /home/iggut/.snow#iggut
+alias rebuildu = sudo nixos-rebuild switch --upgrade --flake /home/iggut/.snow#iggut
 
 let-env config = {
 
@@ -210,7 +210,7 @@ let-env config = {
             | where command =~ $buffer
             | each { |it| {value: $it.command description: $it.usage} }
         }
-      } 
+      }
   ]
   keybindings: [
     {
@@ -314,7 +314,7 @@ let-env config = {
       event: { send: menu name: commands_with_description }
     }
 
-     
+
   ]
 
 }

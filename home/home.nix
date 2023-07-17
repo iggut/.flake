@@ -3,12 +3,14 @@
   pkgs,
   self,
   user,
+  lib,
   ...
 }: {
   imports = [
     ./brave.nix
     ./vscode.nix
     ./swayidle.nix
+    ./shell.nix
   ];
 
   # Home Manager needs a bit of information about you and the
