@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +39,7 @@
     hyprland,
     home-manager,
     disko,
+    nix-index-database,
     ...
   }: let
     user = "iggut";
@@ -49,15 +55,16 @@
         inherit system;
         specialArgs = {inherit user;};
         modules = [
+          nix-index-database.nixosModules.nix-index
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];
           }
           disko.nixosModules.disko
-          ./disko-config.nix
+          ./hosts/gaminix/disko-config.nix
           {
             _module.args.disks = ["/dev/nvme1n1"];
           }
-          ./configuration.nix
+          ./hosts/gaminix/configuration.nix
           hyprland.nixosModules.default
           {
             programs.hyprland.enable = true;

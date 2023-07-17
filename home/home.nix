@@ -82,12 +82,6 @@
     XDG_DATA_HOME = "\${HOME}/.local/share";
   };
 
-  programs.nushell = {
-    enable = true;
-    configFile.source = ./config.nu;
-    envFile.source = ./env.nu;
-  };
-
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards

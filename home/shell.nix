@@ -1,9 +1,16 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   home.sessionVariables.STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
+
+  programs.nushell = {
+    enable = true;
+    configFile.source = ./config.nu;
+    envFile.source = ./env.nu;
+  };
 
   #starship
   programs.starship = {

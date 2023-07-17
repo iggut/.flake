@@ -1,320 +1,119 @@
-# Nushell Config File
 
-source ~/.cache/starship/init.nu
 
-alias zj = zellij
-alias zjd = zellij --layout ../.config/zellij/snowflake.kdl
-alias lg = lazygit
-alias ld = lazydocker
-alias l = exa -ughH --icons
-alias la = exa -alughH --git --icons
-alias ll = exa -alughH --git --icons
-alias calc = eva
-alias c = clear
-alias cat = bat
-alias rm = rm -i
-alias cp = cp -i
-alias mv = mv -i
-alias dl = yt-dlp -P ~/Videos/downloaded
-alias dlcd = yt-dlp
-alias clean = sudo nix-collect-garbage -d
-alias cleanold = sudo nix-collect-garbage --delete-old
-alias gamesteam = gamescope -e -w 1920 -h 1080 -f -Y -- steam -tenfoot
-alias looking-game = gamescope -w 1920 -h 1080 -f -Y -- looking-glass-client -m KEY_INSERT -F
-alias mva = rsync -rP --remove-source-files
-alias rebuilds = sudo nixos-rebuild switch --flake /home/iggut/.snow#iggut
-alias rebuildb = sudo nixos-rebuild boot --flake /home/iggut/.snow#iggut
-alias rebuildu = sudo nixos-rebuild switch --upgrade --flake /home/iggut/.snow#iggut
+
+
 
 let-env config = {
+table: {
+  mode: rounded
+}
+show_banner: false,
+ls: {
+  use_ls_colors: true
+  clickable_links: true
+}
+cd: {
+  abbreviations: true
+ }
+rm: {
+  always_trash: true
+}
+history: {
+  sync_on_enter: true
+}
+hooks: {
+    # pre_prompt: { print "pre prompt hook" }
+    # pre_execution: { print "pre exec hook" }
+    # env_change: {
+        # PWD: {|before, after| print $"changing directory from ($before) to ($after)" }
+    # }
+    command_not_found: {
+        |cmd| (
+           let foundCommands = (nix-locate --minimal --no-group --type x --type s --top-level --whole-name --at-root ("/bin/" + $cmd) | lines | str replace ".out" "");
+           if ($foundCommands | length) == 0  {
+             print "Command not found"
+          } else if $cmd != "wl-copy" {
+              print "Command is avalible in the following packages"
+              print $foundCommands
+              print ("nix-shell -p " + $foundCommands.0 + " coppied to clipboard")
+              echo ("nix-shell -p " + ($foundCommands | get 0) )| wl-copy;
+          }
+        )
+    }
+}
+}
 
-  ls: {
-    use_ls_colors: true # use the LS_COLORS environment variable to colorize output
-    clickable_links: true # enable or disable clickable links. Your terminal has to support links.
-  }
-  rm: {
-    always_trash: false # always act as if -t was given. Can be overridden with -p
-  }
-  cd: {
-    abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
-  }
-  table: {
-    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
-    index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
-    trim: {
-      methodology: wrapping # wrapping or truncating
-      wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
-      truncating_suffix: "..." # A suffix used by the 'truncating' methodology
-    }
-  }
-  history: {
-    max_size: 10000 # Session has to be reloaded for this to take effect
-    sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
-    file_format: "sqlite" # "sqlite" or "plaintext"
-  }
-  completions: {
-    case_sensitive: false # set to true to enable case-sensitive completions
-    quick: true  # set this to false to prevent auto-selecting completions when only one remains
-    partial: true  # set this to false to prevent partial filling of the prompt
-    algorithm: "prefix"  # prefix or fuzzy
-    external: {
-      enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
-      max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-      completer: null # check 'carapace_completer' above as an example
-    }
-  }
-  filesize: {
-    metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-    format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
-  }
-  use_grid_icons: true
-  footer_mode: "25" # always, never, number_of_rows, auto
-  float_precision: 2
-  # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
-  use_ansi_coloring: true
-  edit_mode: vi # emacs, vi
-  shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  show_banner: false # true or false to enable or disable the banner
-  render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
-  hooks: {
-    pre_prompt: [{ ||
-      $nothing  # replace with source code to run before the prompt is shown
-    }]
-    pre_execution: [{ ||
-      $nothing  # replace with source code to run before the repl input is run
-    }]
-    env_change: {
-      PWD: [{|before, after|
-        $nothing  # replace with source code to run if the PWD environment is different since the last repl input
-      }]
-    }
-    display_output: { ||
-      if (term size).columns >= 100 { table -e } else { table }
-    }
-  }
+export def zl [] {
+# zellij a $(pwd | sd '/' '\\n' | tail -n 1) || zellij --layout ./layout.kdl -s $(pwd | sd '/' '\\n' | tail -n 1)";
+if (zellij a ( pwd | split row '/' | last ) | complete | get exit_code) != 0 {
+  zellij --layout ./layout.kdl -s ( pwd | split row '/' | last )
+}
+}
 
-  menus: [
-      # Configuration for default nushell menus
-      # Note the lack of souce parameter
-      {
-        name: completion_menu
-        only_buffer_difference: false
-        marker: "| "
-        type: {
-            layout: columnar
-            columns: 4
-            col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-            col_padding: 2
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-      }
-      {
-        name: history_menu
-        only_buffer_difference: true
-        marker: "? "
-        type: {
-            layout: list
-            page_size: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-      }
-      {
-        name: help_menu
-        only_buffer_difference: true
-        marker: "? "
-        type: {
-            layout: description
-            columns: 4
-            col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-            col_padding: 2
-            selection_rows: 4
-            description_rows: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-      }
-      # Example of extra menus created using a nushell source
-      # Use the source field to create a list of records that populates
-      # the menu
-      {
-        name: commands_menu
-        only_buffer_difference: false
-        marker: "# "
-        type: {
-            layout: columnar
-            columns: 4
-            col_width: 20
-            col_padding: 2
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            $nu.scope.commands
-            | where command =~ $buffer
-            | each { |it| {value: $it.command description: $it.usage} }
-        }
-      }
-      {
-        name: vars_menu
-        only_buffer_difference: true
-        marker: "# "
-        type: {
-            layout: list
-            page_size: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            $nu.scope.vars
-            | where name =~ $buffer
-            | sort-by name
-            | each { |it| {value: $it.name description: $it.type} }
-        }
-      }
-      {
-        name: commands_with_description
-        only_buffer_difference: true
-        marker: "# "
-        type: {
-            layout: description
-            columns: 4
-            col_width: 20
-            col_padding: 2
-            selection_rows: 4
-            description_rows: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            $nu.scope.commands
-            | where command =~ $buffer
-            | each { |it| {value: $it.command description: $it.usage} }
-        }
-      }
-  ]
-  keybindings: [
-    {
-      name: completion_menu
-      modifier: none
-      keycode: tab
-      mode: vi_normal # Options: emacs vi_normal vi_insert
-      event: {
-        until: [
-          { send: menu name: completion_menu }
-          { send: menunext }
-        ]
-      }
-    }
-    {
-      name: completion_previous
-      modifier: shift
-      keycode: backtab
-      mode: [emacs, vi_normal, vi_insert] # Note: You can add the same keybinding to all modes by using a list
-      event: { send: menuprevious }
-    }
-    {
-      name: history_menu
-      modifier: control
-      keycode: char_r
-      mode: emacs
-      event: { send: menu name: history_menu }
-    }
-    {
-      name: next_page
-      modifier: control
-      keycode: char_x
-      mode: emacs
-      event: { send: menupagenext }
-    }
-    {
-      name: undo_or_previous_page
-      modifier: control
-      keycode: char_z
-      mode: emacs
-      event: {
-        until: [
-          { send: menupageprevious }
-          { edit: undo }
-        ]
-       }
-    }
-    {
-      name: yank
-      modifier: control
-      keycode: char_y
-      mode: emacs
-      event: {
-        until: [
-          {edit: pastecutbufferafter}
-        ]
-      }
-    }
-    {
-      name: unix-line-discard
-      modifier: control
-      keycode: char_u
-      mode: [emacs, vi_normal, vi_insert]
-      event: {
-        until: [
-          {edit: cutfromlinestart}
-        ]
-      }
-    }
-    {
-      name: kill-line
-      modifier: control
-      keycode: char_k
-      mode: [emacs, vi_normal, vi_insert]
-      event: {
-        until: [
-          {edit: cuttolineend}
-        ]
-      }
-    }
-    # Keybindings used to trigger the user defined menus
-    {
-      name: commands_menu
-      modifier: control
-      keycode: char_t
-      mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: commands_menu }
-    }
-    {
-      name: vars_menu
-      modifier: alt
-      keycode: char_o
-      mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: vars_menu }
-    }
-    {
-      name: commands_with_description
-      modifier: control
-      keycode: char_s
-      mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: commands_with_description }
-    }
+export def zel [] {
+loop {
+  let sessions =  (zellij list-sessions | lines)
+  let sel = ($sessions | prepend new |prepend exit |  to text | sk)
+  if $sel == "" or $sel == "exit" {
+    break
+  } else if $sel in $sessions {
+    zellij attach $sel
+  } else if $sel == "new" {
+    let input = (input)
+    zellij -s $input
+  }
+}
+}
 
+export def rebuild [] {
+sudo nixos-rebuild switch --flake ~/nix-files/;
+}
 
-  ]
+export def x [name:string] {
+let exten = [ [ex com];
+                  ['.tar.bz2' 'tar xjf']
+                  ['.tar.gz' 'tar xzf']
+                  ['.bz2' 'bunzip2']
+                  ['.rar' 'unrar x']
+                  ['.tbz2' 'tar xjf']
+                  ['.tgz' 'tar xzf']
+                  ['.zip' 'unzip']
+                  ['.7z' '/usr/bin/7z x']
+                  ['.deb' 'ar x']
+                  ['.tar.xz' 'tar xvf']
+                  ['.tar.zst' 'tar xvf']
+                  ['.tar' 'tar xvf']
+                  ['.gz' 'gunzip']
+                  ['.Z' 'uncompress']
+                  ]
+let command = ($exten|where $name =~ $it.ex|first)
+if ($command|is-empty) {
+  echo 'Error! Unsupported file extension'
+} else {
+  nu -c ($command.com + ' ' + $name)
+}
+}
+
+export use "${nuscripts}/modules/background_task/job.nu"
+export use "${nuscripts}/modules/network/ssh.nu"
+use "${nuscripts}/custom-completions/zellij/zellij-completions.nu" *
+use "${nuscripts}/custom-completions/git/git-completions.nu" *
+use "${nuscripts}/custom-completions/cargo/cargo-completions.nu" *
+use "${nuscripts}/custom-completions/make/make-completions.nu" *
+use "${nuscripts}/custom-completions/nix/nix-completions.nu" *
+
+export def "cargo search" [ query: string, --limit=10] {
+^cargo search $query --limit $limit
+| lines
+| each {
+    |line| if ($line | str contains "#") {
+        $line | parse --regex '(?P<name>.+) = "(?P<version>.+)" +# (?P<description>.+)'
+    } else {
+        $line | parse --regex '(?P<name>.+) = "(?P<version>.+)"'
+    }
+}
+| flatten
+| each { |r| {name: $r.name, version: $r.version ,description: $r.description, link: ("https://lib.rs/" + $r.name ) } }
 
 }
+

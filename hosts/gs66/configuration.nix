@@ -208,6 +208,10 @@
   # Disable coredumps
   systemd.coredump.enable = false;
 
+  programs.bash.interactiveShellInit = ''
+    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+  '';
+
   #Firewall
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

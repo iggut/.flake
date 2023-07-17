@@ -154,11 +154,9 @@
 
   programs.seahorse.enable = true;
 
-  programs.command-not-found.enable = false;
+  programs.nix-index.enable = true;
 
-  programs.bash.interactiveShellInit = ''
-    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
-  '';
+  programs.command-not-found.enable = false;
 
   # Configure system services
   environment.etc = {

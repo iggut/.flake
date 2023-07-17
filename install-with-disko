@@ -48,7 +48,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     mkdir -p "/mnt/home/iggut/nixos-config"
     rsync -a --delete "${DIR}/.." "/mnt/home/iggut/nixos-config"
 
-    mkdir -p "/mnt/home/iggut/nixos-config"
     sudo cp -r .config /mnt/home/iggut/
     sudo chown -R iggut: /mnt/home/iggut/.config  # Fix ownership of .config folder
     # If there is a keyfile for a data disk, put copy it to the root partition and
