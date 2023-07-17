@@ -7,8 +7,21 @@
   ...
 }: {
   nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    experimental-features = ["nix-command" "flakes"];
+    auto-optimise-store = true;
+    builders-use-substitutes = true;
+    keep-derivations = true;
+    keep-outputs = true;
+    allowed-users = ["@wheel"];
+    trusted-users = ["root" "@wheel"];
+    substituters = [
+      "https://hyprland.cachix.org"
+      "https://cache.nixos.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
   };
 
   # Include the results of the hardware scan.
@@ -18,6 +31,7 @@
     ./modules/shell.nix
     ./modules/users.nix
     ./modules/nvidia.nix
+    ./modules/game.nix
     ./modules/yubikey.nix
     ./services/mullvad.nix
     ./services/fwupd.nix
@@ -93,6 +107,8 @@
   };
 
   #Services
+  # Enable ssd trim
+  services.fstrim.enable = true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   # Flatpak
@@ -120,18 +136,22 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = false;
+  services.xserver.displayManager.defaultSession = "hyprland";
   services.dbus.packages = [pkgs.dconf];
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon];
 
   #SystemPackages
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   environment.systemPackages = with pkgs; [
     # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     pinentry-gnome
     qgnomeplatform
     polkit_gnome
+    polkit
+    gnomeExtensions.systemd-manager
+    gnomeExtensions.battery-threshold
     xfce.thunar #filemanager
     xfce.xfconf
     xfce.thunar-volman
@@ -182,6 +202,7 @@
     xorg.xhost # Use x.org server with distrobox
     qbittorrent
     xdg-utils
+    cryptomator
   ];
 
   # Disable coredumps

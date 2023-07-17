@@ -10,11 +10,31 @@
   users.users.iggut = {
     isNormalUser = true;
     initialPassword = "nixos";
+    uid = 1000;
     description = "iggut";
-    extraGroups = ["networkmanager" "wheel" "qemu-libvirtd" "libvirtd" "kvm"];
+    shell = pkgs.nushell;
+    extraGroups = [
+      "wheel"
+      "libvirtd"
+      "kvm"
+      "audio"
+      "networkmanager"
+      "disk"
+      "video"
+      "docker"
+      "media"
+      "input"
+      "qemu-libvirtd"
+    ];
     packages = with pkgs; [
+      p7zip
       neovim
+      obs-studio
+      mpv
+      gimp
       brave
+      discord
+      webcord-vencord
       swaylock-effects
       swayidle
       wlogout
@@ -29,8 +49,12 @@
       jellyfin-ffmpeg #multimedia libs
       viewnior #image viewr
       pavucontrol #Volume control
+      pinentry-gnome
+      qgnomeplatform
+      polkit_gnome
       xfce.thunar #filemanager
       xfce.xfconf
+      xfce.thunar-volman
       gnome-text-editor
       gnome.file-roller
       gnome.adwaita-icon-theme
@@ -115,13 +139,6 @@
 
   #gnome outside gnome
   programs.dconf.enable = true;
-
-  #Steam
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
 
   programs = {
     #nm-applet.enable = true; # Network manager tray icon

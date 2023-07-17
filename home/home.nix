@@ -8,6 +8,7 @@
   imports = [
     ./brave.nix
     ./vscode.nix
+    ./swayidle.nix
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -77,6 +78,12 @@
     XDG_CONFIG_HOME = "\${HOME}/.config";
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     XDG_DATA_HOME = "\${HOME}/.local/share";
+  };
+
+  programs.nushell = {
+    enable = true;
+    configFile.source = ./config.nu;
+    envFile.source = ./env.nu;
   };
 
   # This value determines the Home Manager release that your
