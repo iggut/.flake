@@ -1,14 +1,9 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   home.sessionVariables.STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
-
-  programs.bash.interactiveShellInit = ''
-    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
-  '';
 
   #starship
   programs.starship = {

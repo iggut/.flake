@@ -155,6 +155,10 @@
 
   programs.command-not-found.enable = false;
 
+  programs.bash.interactiveShellInit = ''
+    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+  '';
+
   # Configure system services
   environment.etc = {
     "polkit-gnome".source = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
