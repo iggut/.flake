@@ -9,6 +9,8 @@
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     auto-optimise-store = true;
+    warn-dirty = false;
+    auto-optimise-store = true;
     builders-use-substitutes = true;
     keep-derivations = true;
     keep-outputs = true;

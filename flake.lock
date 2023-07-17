@@ -251,6 +251,22 @@
         "type": "github"
       }
     },
+    "nuscripts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688124803,
+        "narHash": "sha256-W/1ggz8y7gDvZ6JFB6CtABE7g2CUfoLQBQjAbNJHuHM=",
+        "owner": "nushell",
+        "repo": "nu_scripts",
+        "rev": "c37fd0449f44f3e16d4650b2580f35bc836510b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nushell",
+        "repo": "nu_scripts",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "alejandra": "alejandra",
