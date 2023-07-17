@@ -27,15 +27,15 @@
   # Include the results of the hardware scan.
   imports = [
     ./hardware-configuration.nix
-    ./modules/vm.nix
-    ./modules/shell.nix
-    ./modules/users.nix
-    ./modules/nvidia.nix
-    ./modules/game.nix
-    ./modules/yubikey.nix
-    ./services/mullvad.nix
-    ./services/fwupd.nix
-    ./services/swapfile.nix
+    ../modules/vm.nix
+    ../modules/shell.nix
+    ../modules/users.nix
+    ../modules/nvidia.nix
+    ../modules/game.nix
+    ../modules/yubikey.nix
+    ../services/mullvad.nix
+    ../services/fwupd.nix
+    ../services/swapfile.nix
   ];
 
   #ntfs support
