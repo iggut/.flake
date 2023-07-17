@@ -114,21 +114,13 @@
               }
             }
 
-          export use "''
-        + builtins.readFile ./modules/background_task/job.nu
-        + ''          "
-                    export use "''
-        + builtins.readFile ./modules/ssh.nu
-        + ''          "
-                    use"''
-        + builtins.readFile ./custom-completions/nix/nix-completions.nu
-        + ''          " *
-                    use"''
-        + builtins.readFile ./custom-completions/make/make-completions.nu
-        + ''          " *
-                    use "''
-        + builtins.readFile ./custom-completions/git/git-completions.nu
-        + ''          " *
+          export use ".config/nu_script/modules/background_task/job.nu"
+          export use ".config/nu_script/modules/network/ssh.nu"
+          use ".config/nu_script/custom-completions/zellij/zellij-completions.nu" *
+          use ".config/nu_script/custom-completions/git/git-completions.nu" *
+          use ".config/nu_script/custom-completions/cargo/cargo-completions.nu" *
+          use ".config/nu_script/custom-completions/make/make-completions.nu" *
+          use ".config/nu_script/custom-completions/nix/nix-completions.nu" *
 
                     export def "cargo search" [ query: string, --limit=10] {
                         ^cargo search $query --limit $limit
