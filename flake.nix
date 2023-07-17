@@ -85,6 +85,9 @@
           }
           disko.nixosModules.disko
           ./hosts/gs66/disko-config.nix
+          {
+            _module.args.disks = ["/dev/nvme0n1"];
+          }
           ./hosts/gs66/configuration.nix
           hyprland.nixosModules.default
           {
