@@ -40,7 +40,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         --no-write-lock-file \
         -- \
         --mode zap_create_mount \
-        "./disko-config.nix"
+        "./hosts/${TARGET_HOST}/disko-config.nix"
 
     sudo nixos-install --flake ".#${TARGET_HOST}"
 
