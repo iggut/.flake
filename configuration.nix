@@ -179,6 +179,7 @@
     fd
     file
     gotop
+    nix-index
     helix
     htop
     jq
