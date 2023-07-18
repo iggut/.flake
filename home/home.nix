@@ -68,14 +68,27 @@
   #Hyprland
   home.sessionVariables = {
     # make stuff work on wayland
-    GDK_BACKEND = "wayland,x11";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    SDL_VIDEODRIVER = "wayland";
+    #GDK_BACKEND = "wayland,x11";
+    #QT_QPA_PLATFORM = "wayland;xcb";
+    #SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
     LIBSEAT_BACKEND = "gdm";
     NIXOS_OZONE_WL = "1";
     XDG_SESSION_TYPE = "wayland";
+
+    #######################
+    GDK_BACKEND = "wayland";
+    WLR_DRM_NO_ATOMIC = "1";
+    WLR_BACKEND = "vulkan";
+    WLR_RENDERER = "vulkan";
+    QT_QPA_PLATFORM = "xcb";
+    SDL_VIDEODRIVER = "x11";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    #######################
 
     BROWSER = "brave";
     TERMINAL = "kitty";

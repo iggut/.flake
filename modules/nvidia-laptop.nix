@@ -19,8 +19,27 @@ in {
   ];
 
   environment.variables = {
-    LIBVA_DRIVER_NAME = "iHD";
-    VDPAU_DRIVER = "va_gl";
+    #LIBVA_DRIVER_NAME = "iHD";
+    #VDPAU_DRIVER = "va_gl";
+
+    __GL_GSYNC_ALLOWED = "0";
+    __GL_VRR_ALLOWED = "0";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
+  #Enable Gamescope
+  programs.gamescope = {
+    enable = true;
+    package = pkgs.gamescope_git;
+    capSysNice = true;
+    #args = ["--prefer-vk-device 10de:2206"];
+    #env = {
+    #  "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+    #  "MESA_VK_DEVICE_SELECT" = "pci:10de:2206";
+    #};
   };
 
   virtualisation.docker.enableNvidia = true;
@@ -64,9 +83,12 @@ in {
       };
     };
     opengl = {
+      driSupport = true;
       enable = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
+        vaapiVdpau
+        libvdpau-va-gl
       ];
     };
     opentabletdriver = {
