@@ -26,7 +26,7 @@
 
   # Include the results of the hardware scan.
   imports = [
-    ./vm.nix
+    ./virtualisation.nix
     ./shell.nix
     ./users.nix
     ./game.nix
