@@ -32,14 +32,9 @@ in {
 
   #Enable Gamescope
   programs.gamescope = {
-    enable = true;
-    package = pkgs.gamescope_git;
-    capSysNice = true;
-    #args = ["--prefer-vk-device 10de:2206"];
-    #env = {
-    #  "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
-    #  "MESA_VK_DEVICE_SELECT" = "pci:10de:2206";
-    #};
+    env = {
+      "INTEL_DEBUG" = "noccs";
+    };
   };
 
   virtualisation.docker.enableNvidia = true;
