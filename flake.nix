@@ -51,7 +51,7 @@
     lib = nixpkgs.lib;
   in {
     nixosConfigurations = {
-      iggut = nixpkgs.lib.nixosSystem {
+      gaminix = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit user;};
         modules = [

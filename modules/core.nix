@@ -9,7 +9,6 @@
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     auto-optimise-store = true;
-    warn-dirty = false;
     builders-use-substitutes = true;
     keep-derivations = true;
     keep-outputs = true;
@@ -27,16 +26,14 @@
 
   # Include the results of the hardware scan.
   imports = [
-    ./hardware-configuration.nix
-    ../../modules/vm.nix
-    ../../modules/shell.nix
-    ../../modules/users.nix
-    ../../modules/nvidia.nix
-    ../../modules/game.nix
-    ../../modules/yubikey.nix
-    ../../services/mullvad.nix
-    ../../services/fwupd.nix
-    ../../services/swapfile.nix
+    ./vm.nix
+    ./shell.nix
+    ./users.nix
+    ./game.nix
+    ./yubikey.nix
+    ../services/mullvad.nix
+    ../services/fwupd.nix
+    ../services/swapfile.nix
   ];
 
   #ntfs support
@@ -46,8 +43,6 @@
     font-awesome
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Iosevka"];})
   ];
-  #emojis
-  #services.gollum.emoji = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -56,8 +51,6 @@
   # Boot entries limit
   boot.loader.systemd-boot.configurationLimit = 10;
 
-  # Define your hostname
-  networking.hostName = "gaminix";
   # Enable networking
   networking.networkmanager.enable = true;
   # Bluethooth
@@ -72,15 +65,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    #isDefault
-    #wireplumber.enable= true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Set your time zone.
@@ -151,6 +135,7 @@
     qgnomeplatform
     polkit_gnome
     polkit
+    nerdfonts
     gnomeExtensions.systemd-manager
     gnomeExtensions.battery-threshold
     xfce.thunar #filemanager
@@ -208,6 +193,10 @@
 
   # Disable coredumps
   systemd.coredump.enable = false;
+
+  programs.bash.interactiveShellInit = ''
+    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+  '';
 
   #Firewall
   # Open ports in the firewall.

@@ -244,6 +244,15 @@
         format = "[ $symbol $branch ]($style)";
       };
       git_status = {
+        ahead = "⇡ $count ";
+        behind = "⇣ $count ";
+        deleted = "🗑 $count ";
+        diverged = " $count ";
+        stashed = "📦 $count ";
+        modified = "פֿ $count ";
+        staged = "[ $count ](green)";
+        renamed = " $count ";
+        untracked = "🤷 ‍$count ";
         style = "bg:#eb7c92 fg:#11111b";
         format = "[$all_status$ahead_behind ]($style)";
       };
