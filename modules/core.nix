@@ -166,6 +166,7 @@
     file
     gotop
     nix-index
+    nwg-dock-hyprland
     helix
     htop
     jq

@@ -22,6 +22,7 @@
 
   hardware = {
     nvidia = {
+      enable = true;
       powerManagement.enable = true;
       # Modesetting is needed for most wayland compositors
       modesetting.enable = true;
