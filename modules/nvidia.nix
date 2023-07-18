@@ -20,6 +20,13 @@
   # Tell Xorg to use the nvidia driver
   services.xserver.videoDrivers = ["nvidia"];
 
+  environment.variables = {
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
   hardware = {
     nvidia = {
       powerManagement.enable = true;
