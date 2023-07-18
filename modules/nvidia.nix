@@ -30,6 +30,9 @@
     __GL_VRR_ALLOWED = "0";
   };
 
+  virtualisation.docker.enableNvidia = true;
+  virtualisation.podman.enableNvidia = true;
+
   hardware = {
     nvidia = {
       powerManagement.enable = true;

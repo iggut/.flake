@@ -37,6 +37,22 @@ in {
     };
   };
 
+  programs.steam.gamescopeSession.args = [
+    "-w 1920"
+    "-h 1080"
+    "-W 1920"
+    "-H 1080"
+    "-F nis"
+  ];
+
+  programs.steam.gamescopeSession.env = {
+    "INTEL_DEBUG" = "noccs";
+    "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
+    "__NV_PRIME_RENDER_OFFLOAD" = "1";
+    "__VK_LAYER_NV_optimus" = "NVIDIA_only";
+    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+  };
+
   virtualisation.docker.enableNvidia = true;
   virtualisation.podman.enableNvidia = true;
   #Nvidia
