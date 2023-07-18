@@ -16,7 +16,7 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "iggut";
-  home.homeDirectory = "/home/iggut";
+  home.homeDirectory = lib.mkDefault "/home/iggut";
 
   #Gtk
   gtk = {
