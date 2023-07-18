@@ -22,6 +22,12 @@ in {
     #LIBVA_DRIVER_NAME = "iHD";
     #VDPAU_DRIVER = "va_gl";
 
+    #################
+
+    MOZ_DISABLE_RDD_SANDBOX = "1";
+    EGL_PLATFORM = "wayland";
+    #################
+
     __GL_GSYNC_ALLOWED = "0";
     __GL_VRR_ALLOWED = "0";
     GBM_BACKEND = "nvidia-drm";
@@ -46,6 +52,7 @@ in {
   ];
 
   programs.steam.gamescopeSession.env = {
+    "ENABLE_VKBASALT" = "1";
     "INTEL_DEBUG" = "noccs";
     "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
     "__NV_PRIME_RENDER_OFFLOAD" = "1";

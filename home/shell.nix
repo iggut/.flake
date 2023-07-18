@@ -63,28 +63,6 @@
               }
             }
 
-            export def zl [] {
-              # zellij a $(pwd | sd '/' '\\n' | tail -n 1) || zellij --layout ./layout.kdl -s $(pwd | sd '/' '\\n' | tail -n 1)";
-              if (zellij a ( pwd | split row '/' | last ) | complete | get exit_code) != 0 {
-                zellij --layout ./layout.kdl -s ( pwd | split row '/' | last )
-              }
-            }
-
-            export def zel [] {
-              loop {
-                let sessions =  (zellij list-sessions | lines)
-                let sel = ($sessions | prepend new |prepend exit |  to text | sk)
-                if $sel == "" or $sel == "exit" {
-                  break
-                } else if $sel in $sessions {
-                  zellij attach $sel
-                } else if $sel == "new" {
-                  let input = (input)
-                  zellij -s $input
-                }
-              }
-            }
-
             export def rebuild [] {
               sudo nixos-rebuild switch --flake ~/nix-files/;
             }
@@ -121,22 +99,6 @@
           use ".config/nu_script/custom-completions/cargo/cargo-completions.nu" *
           use ".config/nu_script/custom-completions/make/make-completions.nu" *
           use ".config/nu_script/custom-completions/nix/nix-completions.nu" *
-
-                    export def "cargo search" [ query: string, --limit=10] {
-                        ^cargo search $query --limit $limit
-                        | lines
-                        | each {
-                            |line| if ($line | str contains "#") {
-                                $line | parse --regex '(?P<name>.+) = "(?P<version>.+)" +# (?P<description>.+)'
-                            } else {
-                                $line | parse --regex '(?P<name>.+) = "(?P<version>.+)"'
-                            }
-                        }
-                        | flatten
-                        | each { |r| {name: $r.name, version: $r.version ,description: $r.description, link: ("https://lib.rs/" + $r.name ) } }
-
-                    }
-
         '';
     };
 
