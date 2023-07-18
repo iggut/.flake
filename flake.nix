@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     hyprland.url = "github:hyprwm/Hyprland";
 
     nix-vscode-extensions = {
@@ -30,6 +32,12 @@
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # The Chaotic toolbox
+    #src-chaotic-toolbox = {
+    #  flake = false;
+    #  url = "github:chaotic-aur/toolbox";
+    #};
   };
 
   outputs = {
@@ -40,6 +48,7 @@
     home-manager,
     disko,
     nix-index-database,
+    chaotic,
     ...
   }: let
     user = "iggut";
@@ -55,6 +64,7 @@
         inherit system;
         specialArgs = {inherit user;};
         modules = [
+          chaotic.nixosModules.default
           nix-index-database.nixosModules.nix-index
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];
