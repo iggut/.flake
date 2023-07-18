@@ -18,7 +18,6 @@
       "vfio_pci"
       "vfio_iommu_type1"
       "vfio"
-      "nvidia"
       "kvmfr"
     ];
 
@@ -28,7 +27,7 @@
       "preempt=voluntary"
       "iommu.passthrough=1"
       "iommu=pt"
-      "vfio-pci.ids=10de:2482,10de:228b"
+      #"vfio-pci.ids=10de:2482,10de:228b"
       "kvm.ignore_msrs=1"
       "kvm.report_ignored_msrs=0"
       "split_lock_detect=off" # https://www.phoronix.com/news/Linux-Splitlock-Hurts-Gaming
@@ -38,7 +37,6 @@
       "vfio_pci"
       "vfio_iommu_type1"
       "vfio"
-      "nvidia"
     ];
   };
 

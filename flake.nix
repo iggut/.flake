@@ -97,6 +97,8 @@
         inherit system;
         specialArgs = {inherit user;};
         modules = [
+          chaotic.nixosModules.default
+          nix-index-database.nixosModules.nix-index
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];
           }
