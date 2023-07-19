@@ -23,8 +23,6 @@ buildGoModule rec {
 
   vendorHash = "sha256-GhcrIVnZRbiGTfeUAWvslOVWDZmoL0ZRnjgTtQgxe2Q=";
 
-  ldflags = ["-s" "-w"];
-
   buildInputs = [cairo gobject-introspection gtk3 gtk-layer-shell];
   nativeBuildInputs = [pkg-config wrapGAppsHook];
 
