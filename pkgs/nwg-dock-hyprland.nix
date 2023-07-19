@@ -2,13 +2,9 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  cairo,
-  gobject-introspection,
-  gtk3,
-  gtk-layer-shell,
   pkg-config,
   wrapGAppsHook,
-  xdg-utils,
+  gtk-layer-shell,
 }:
 buildGoModule rec {
   pname = "nwg-dock-hyprland";
@@ -23,10 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-GhcrIVnZRbiGTfeUAWvslOVWDZmoL0ZRnjgTtQgxe2Q=";
 
-  buildInputs = [cairo gobject-introspection gtk3 gtk-layer-shell];
-  nativeBuildInputs = [pkg-config wrapGAppsHook];
+  ldflags = ["-s" "-w"];
 
-  doCheck = false;
+  nativeBuildInputs = [pkg-config wrapGAppsHook];
+  buildInputs = [gtk-layer-shell];
 
   preInstall = ''
     mkdir -p $out/share/nwg-dock
