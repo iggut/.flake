@@ -16,6 +16,9 @@
 in {
   environment.systemPackages = with pkgs; [
     nvidia-offload
+    libva
+    libva-utils
+    glxinfo
   ];
 
   environment.variables = {
@@ -24,16 +27,16 @@ in {
 
     #################
 
-    MOZ_DISABLE_RDD_SANDBOX = "1";
-    EGL_PLATFORM = "wayland";
+    ##MOZ_DISABLE_RDD_SANDBOX = "1";
+    ##EGL_PLATFORM = "wayland";
     #################
 
-    __GL_GSYNC_ALLOWED = "0";
-    __GL_VRR_ALLOWED = "0";
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    LIBVA_DRIVER_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
+    ##__GL_GSYNC_ALLOWED = "0";
+    ##__GL_VRR_ALLOWED = "0";
+    ##GBM_BACKEND = "nvidia-drm";
+    ##__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    ##LIBVA_DRIVER_NAME = "nvidia";
+    ##WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   #Enable Gamescope
@@ -48,16 +51,11 @@ in {
     "-h 1080"
     "-W 1920"
     "-H 1080"
-    "-F nis"
   ];
 
   programs.steam.gamescopeSession.env = {
     "ENABLE_VKBASALT" = "1";
     "INTEL_DEBUG" = "noccs";
-    "__NV_PRIME_RENDER_OFFLOAD_PROVIDER" = "NVIDIA-G0";
-    "__NV_PRIME_RENDER_OFFLOAD" = "1";
-    "__VK_LAYER_NV_optimus" = "NVIDIA_only";
-    "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
   };
 
   virtualisation.docker.enableNvidia = true;
@@ -80,22 +78,23 @@ in {
     nvidia = {
       nvidiaPersistenced = true;
       powerManagement.enable = true;
-      powerManagement.finegrained = true;
+      #powerManagement.finegrained = true;
       # Modesetting is needed for most wayland compositors
       modesetting.enable = true;
       # Use the open source version of the kernel module
       # Only available on driver 515.43.04+
-      open = true;
+      open = false;
       # Enable the nvidia settings menu < nvidia-settings doesn't work with clang lto
       nvidiaSettings = false;
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
+        #sync.enable = true;
         offload = {
           enable = true;
-          enableOffloadCmd = true;
+          #enableOffloadCmd = true;
         };
-        reverseSync.enable = true;
+        #reverseSync.enable = true;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
@@ -104,11 +103,14 @@ in {
       driSupport = true;
       enable = true;
       extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
         nvidia-vaapi-driver
         vaapiVdpau
         libvdpau-va-gl
       ];
     };
+    pulseaudio.support32Bit = true;
     opentabletdriver = {
       enable = true;
       daemon.enable = true;

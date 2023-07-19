@@ -135,7 +135,7 @@
   # $ nix search wget
 
   environment.systemPackages = with pkgs; [
-    (callPackage ../pkgs/nwg-dock-hyprland.nix {})
+    nwg-drawer
     pinentry-gnome
     qgnomeplatform
     polkit_gnome
@@ -171,8 +171,7 @@
     file
     gotop
     nix-index
-    #nwg-dock-hyprland
-    nwg-drawer
+    nwg-dock-hyprland
     helix
     htop
     jq
@@ -197,6 +196,9 @@
     xdg-utils
     cryptomator
   ];
+
+  # Make applications find files in <prefix>/share
+  environment.pathsToLink = ["/share"];
 
   # Disable coredumps
   systemd.coredump.enable = false;

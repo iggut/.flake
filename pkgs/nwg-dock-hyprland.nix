@@ -2,9 +2,13 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  cairo,
+  gobject-introspection,
+  gtk3,
+  gtk-layer-shell,
   pkg-config,
   wrapGAppsHook,
-  gtk-layer-shell,
+  xdg-utils,
 }:
 buildGoModule rec {
   pname = "nwg-dock-hyprland";
