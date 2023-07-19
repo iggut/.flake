@@ -68,9 +68,9 @@
   #Hyprland
   home.sessionVariables = {
     # make stuff work on wayland
-    GDK_BACKEND = "wayland,x11";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    #SDL_VIDEODRIVER = "wayland"; #
+    #GDK_BACKEND = "wayland,x11";
+    #QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
     LIBSEAT_BACKEND = "gdm";
@@ -78,7 +78,7 @@
     XDG_SESSION_TYPE = "wayland";
 
     #######################
-    #GDK_BACKEND = "wayland";
+    GDK_BACKEND = "wayland";
     WLR_DRM_NO_ATOMIC = "1";
     WLR_BACKEND = "vulkan";
     WLR_RENDERER = "vulkan";
@@ -89,9 +89,13 @@
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     #######################
+    QT_QPA_PLATFORM = "wayland-egl";
+    ECORE_EVAS_ENGINE = "wayland-egl";
+    ELM_ENGINE = "wayland_egl";
 
     BROWSER = "brave";
     TERMINAL = "kitty";
+    LAUNCHER = "nwg-drawer";
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
     XDG_BIN_HOME = "\${HOME}/.local/bin";

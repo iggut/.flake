@@ -94,6 +94,18 @@
       wine64Packages.waylandFull
       curl
       #########################
+      grim
+      egl-wayland
+      swappy
+      wayland
+      wayland-utils
+      wayshot
+      wev
+      wf-recorder
+      wl-clipboard
+      wlr-randr
+      wtype
+      sov
     ];
   };
 

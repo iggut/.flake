@@ -135,7 +135,7 @@
   # $ nix search wget
 
   environment.systemPackages = with pkgs; [
-    # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    (callPackage ../pkgs/nwg-dock-hyprland.nix {})
     pinentry-gnome
     qgnomeplatform
     polkit_gnome
@@ -171,7 +171,8 @@
     file
     gotop
     nix-index
-    nwg-dock-hyprland
+    #nwg-dock-hyprland
+    nwg-drawer
     helix
     htop
     jq
