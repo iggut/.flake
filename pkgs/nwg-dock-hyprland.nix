@@ -2,9 +2,13 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  cairo,
+  gobject-introspection,
+  gtk3,
+  gtk-layer-shell,
   pkg-config,
   wrapGAppsHook,
-  gtk-layer-shell,
+  xdg-utils,
 }:
 buildGoModule rec {
   pname = "nwg-dock-hyprland";
@@ -21,18 +25,24 @@ buildGoModule rec {
 
   ldflags = ["-s" "-w"];
 
+  buildInputs = [cairo gobject-introspection gtk3 gtk-layer-shell];
   nativeBuildInputs = [pkg-config wrapGAppsHook];
-  buildInputs = [gtk-layer-shell];
 
-  ######Test######
-  postInstall = ''
+  doCheck = false;
+
+  preInstall = ''
     mkdir -p $out/share/nwg-dock
     cp -r images $out/share/nwg-dock
     cp config/* $out/share/nwg-dock
-
-    wrapProgram $out/bin/nwg-dock --set XDG_DATA_HOME : $out/share
   '';
-  ######Test######
+
+  preFixup = ''
+    # make xdg-open overrideable at runtime
+    gappsWrapperArgs+=(
+      --suffix PATH : ${xdg-utils}/bin
+      --prefix XDG_DATA_DIRS : $out/share
+    )
+  '';
 
   meta = with lib; {
     description = "GTK3-based dock for Hyprland";
