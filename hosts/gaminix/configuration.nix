@@ -10,7 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/core.nix
-    ../../modules/nvidia.nix
+    #../../modules/nvidia.nix
+    ../../modules/nvidia-laptop.nix
   ];
 
   # Define your hostname
