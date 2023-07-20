@@ -21,14 +21,9 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   environment.variables = {
-    #WLR_NO_HARDWARE_CURSORS = "1";
-  };
-
-  #Enable Gamescope
-  programs.gamescope = {
-    env = {
-      "INTEL_DEBUG" = "noccs";
-    };
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
   };
 
   virtualisation.docker.enableNvidia = true;
@@ -36,7 +31,6 @@
 
   hardware = {
     nvidia = {
-      nvidiaPersistenced = true;
       powerManagement.enable = true;
       # Modesetting is needed for most wayland compositors
       modesetting.enable = true;
@@ -46,7 +40,7 @@
       # Enable the nvidia settings menu
       nvidiaSettings = false;
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
     opengl = {
       enable = true;
@@ -54,6 +48,7 @@
         nvidia-vaapi-driver
         vaapiVdpau
         libvdpau-va-gl
+        egl-wayland
       ];
     };
     opentabletdriver = {

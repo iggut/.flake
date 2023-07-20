@@ -95,7 +95,6 @@
       curl
       #########################
       grim
-      egl-wayland
       swappy
       wayland
       wayland-utils

@@ -27,6 +27,7 @@
       "preempt=voluntary"
       "iommu.passthrough=1"
       "iommu=pt"
+      "quiet"
       #"vfio-pci.ids=10de:2482,10de:228b"
       "kvm.ignore_msrs=1"
       "kvm.report_ignored_msrs=0"
