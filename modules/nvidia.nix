@@ -10,21 +10,33 @@
   #Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # NVIDIA drivers are unfree.
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-    ];
-
   # Tell Xorg to use the nvidia driver
   services.xserver.videoDrivers = ["nvidia"];
 
   environment.variables = {
+    EDITOR = "code";
+    BROWSER = "brave";
+    TERMINAL = "kitty";
+    LAUNCHER = "nwg-drawer";
     GBM_BACKEND = "nvidia-drm";
+    __GL_GSYNC_ALLOWED = "0";
+    __GL_VRR_ALLOWED = "0";
+    WLR_DRM_NO_ATOMIC = "1";
+    XDG_SESSION_TYPE = "wayland";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    LIBVA_DRIVER_NAME = "nvidia";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    GDK_BACKEND = "wayland";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    WLR_BACKEND = "vulkan";
+    WLR_RENDERER = "vulkan";
+    XCURSOR_SIZE = "24";
+    NIXOS_OZONE_WL = "1";
   };
+
+  programs.xwayland.enable = true;
 
   virtualisation.docker.enableNvidia = true;
   virtualisation.podman.enableNvidia = true;
@@ -32,23 +44,13 @@
   hardware = {
     nvidia = {
       powerManagement.enable = true;
-      # Modesetting is needed for most wayland compositors
       modesetting.enable = true;
-      # Use the open source version of the kernel module
-      # Only available on driver 515.43.04+
-      open = true;
-      # Enable the nvidia settings menu
-      nvidiaSettings = false;
-      # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
     opengl = {
       enable = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
-        vaapiVdpau
-        libvdpau-va-gl
-        egl-wayland
       ];
     };
     opentabletdriver = {
