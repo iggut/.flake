@@ -68,8 +68,8 @@
   #Hyprland
   home = {
     sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "firefox";
+      EDITOR = "code";
+      BROWSER = "brave";
       TERMINAL = "kitty";
       LAUNCHER = "nwg-drawer";
       # GTK_IM_MODULE = "fcitx5";
@@ -83,7 +83,7 @@
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-      WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+
       WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line
       WLR_RENDERER_ALLOW_SOFTWARE = "1";
       # GBM_BACKEND = "nvidia-drm";

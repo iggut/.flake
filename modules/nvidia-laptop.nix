@@ -24,7 +24,7 @@ in {
   environment.variables = {
     #LIBVA_DRIVER_NAME = "iHD";
     #VDPAU_DRIVER = "va_gl";
-
+    WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
     #################
 
     ##MOZ_DISABLE_RDD_SANDBOX = "1";

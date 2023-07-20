@@ -21,14 +21,7 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   environment.variables = {
-    MOZ_DISABLE_RDD_SANDBOX = "1";
-    EGL_PLATFORM = "wayland";
-    __GL_GSYNC_ALLOWED = "0";
-    __GL_VRR_ALLOWED = "0";
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    LIBVA_DRIVER_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
+    #WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   #Enable Gamescope
@@ -51,7 +44,7 @@
       # Only available on driver 515.43.04+
       open = true;
       # Enable the nvidia settings menu
-      nvidiaSettings = true;
+      nvidiaSettings = false;
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
