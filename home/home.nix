@@ -68,8 +68,8 @@
   #Hyprland
   home = {
     sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "firefox";
+      EDITOR = "code";
+      BROWSER = "brave";
       TERMINAL = "kitty";
       LAUNCHER = "nwg-drawer";
       # GTK_IM_MODULE = "fcitx5";

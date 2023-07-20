@@ -49,6 +49,16 @@
     (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Iosevka"];})
   ];
 
+  boot.kernelModules = [
+    "v4l2loopback" # Virtual camera
+    "uinput"
+    "fuse"
+    "overlay"
+  ];
+  boot.extraModprobeConfig = ''
+    options fuse allow_other
+  '';
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -95,6 +105,8 @@
     layout = "us";
     xkbVariant = "";
   };
+
+  services.envfs.enable = true;
 
   #Services
   # Enable ssd trim
@@ -154,6 +166,7 @@
     gnome.gnome-calculator
     vim
     zig
+    fuse
     wget
     killall
     git
@@ -200,8 +213,16 @@
   # Make applications find files in <prefix>/share
   environment.pathsToLink = ["/share"];
 
+  # Move ~/.Xauthority out of $HOME (setting XAUTHORITY early isn't enough)
+  environment.extraInit = ''
+    export XAUTHORITY=/tmp/Xauthority
+    [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
+  '';
+
   # Disable coredumps
   systemd.coredump.enable = false;
+
+  hardware.uinput.enable = true; # Enable uinput support
 
   programs.bash.interactiveShellInit = ''
     source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
