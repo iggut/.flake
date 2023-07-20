@@ -78,7 +78,7 @@
       QT_QPA_PLATFORMTHEME = "gnome";
       QT_SCALE_FACTOR = "1";
       MOZ_ENABLE_WAYLAND = "1";
-      SDL_VIDEODRIVER = "wayland,x11";
+      SDL_VIDEODRIVER = "x11";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
