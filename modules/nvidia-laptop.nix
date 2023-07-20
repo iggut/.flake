@@ -46,18 +46,6 @@ in {
     };
   };
 
-  programs.steam.gamescopeSession.args = [
-    "-w 1920"
-    "-h 1080"
-    "-W 1920"
-    "-H 1080"
-  ];
-
-  programs.steam.gamescopeSession.env = {
-    "ENABLE_VKBASALT" = "1";
-    "INTEL_DEBUG" = "noccs";
-  };
-
   virtualisation.docker.enableNvidia = true;
   virtualisation.podman.enableNvidia = true;
   #Nvidia
