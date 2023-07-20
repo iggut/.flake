@@ -42,7 +42,7 @@ in {
   #Enable Gamescope
   programs.gamescope = {
     env = {
-      "INTEL_DEBUG" = "noccs";
+      #"INTEL_DEBUG" = "noccs";
     };
   };
 
